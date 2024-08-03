@@ -3,7 +3,7 @@
 		<div class="logo">Universities</div>
 		<div class="header-right">
 			<div class="header-search">
-				<input type="text" placeholder="Procurando por algo?" />
+				<input type="text" placeholder="Procurando por algo?" v-model="search" />
 				<search-icon />
 			</div>
 			<div class="header-bag">
@@ -14,8 +14,14 @@
 </template>
 
 <script setup>
+	import { storeToRefs } from 'pinia';
+	import { useFilterStore } from '../stores/filter-store';
+
 	import BagHeart from '../icons/BagHeart.vue';
 	import SearchIcon from '../icons/SearchIcon.vue';
+
+	const filter = useFilterStore();
+	const { search } = storeToRefs(filter);
 </script>
 
 <style scoped>
