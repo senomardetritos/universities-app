@@ -1,0 +1,9 @@
+@media (min-width: 968px) {
+	header,
+	main {
+		padding: 20px 160px !important;
+	}
+	header .logo {
+		font-size: 24px !important;
+	}
+}

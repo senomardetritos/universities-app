@@ -1,0 +1,16 @@
+:root {
+	--bg-body: #eee;
+	--bg-light: #fefefe;
+	--text-light: #f9f9f9;
+	--text-dark: #333;
+    --color-orange: #FFA585;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	background-color: var(--bg-body);
+	font-family: 'Saira Semi Condensed', sans-serif;
+	font-weight: 400;
+	font-style: normal;
+}
