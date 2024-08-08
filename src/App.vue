@@ -2,7 +2,6 @@
 	<div>
 		<header-page />
 		<main>
-			<country-options />
 			<RouterView />
 		</main>
 	</div>
@@ -11,7 +10,6 @@
 <script setup>
 	import { RouterView } from 'vue-router';
 	import HeaderPage from './components/HeaderPage.vue';
-	import CountryOptions from './components/CountryOptions.vue';
 </script>
 
 <style scoped>

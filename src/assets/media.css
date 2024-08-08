@@ -6,13 +6,13 @@
 	header .logo {
 		font-size: 24px !important;
 	}
-	.card-university {
-		width: 200px !important;
+	.container-university-item {
+		width: 50% !important;
 	}
 }
 
 @media (min-width: 1200px) {
-	.card-university {
-		width: 280px !important;
+	.container-university-item {
+		width: 33.333% !important;
 	}
 }
