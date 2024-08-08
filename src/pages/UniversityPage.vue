@@ -2,7 +2,7 @@
 	<div>
 		<BackButton page="/" />
 		<div class="university-page" v-if="university">
-			<h3>{{ university.country }}</h3>
+			<h3>{{ countries[university.country] }}</h3>
 			<h1>{{ university.name }}</h1>
 			<div class="university-page-description">
 				<div v-if="data">
@@ -26,6 +26,7 @@
 	import { useRouter } from 'vue-router';
 	import { storeToRefs } from 'pinia';
 	import { useUniversityStore } from '../stores/university-store';
+	import { countries } from '../options/countries';
 	import BackButton from '../components/BackButton.vue';
 
 	const router = useRouter();
