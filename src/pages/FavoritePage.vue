@@ -1,9 +1,6 @@
 <template>
 	<div>
-		<div class="back-page" @click="back">
-			<arrow-left />
-			<div>Voltar</div>
-		</div>
+		<BackButton page="/"/>
 		<div class="favorite-container" v-if="favorites > 0">
 			<div class="favorite-country" v-for="(item, i) in list_countries" :key="i">
 				<div v-if="item.items.length > 0">
@@ -18,15 +15,13 @@
 
 <script setup>
 	import { ref, onMounted } from 'vue';
-	import { useRouter } from 'vue-router';
+	import { storeToRefs } from 'pinia';
 	import { countries } from '../options/countries';
 	import { getStorage } from '../utils/storage';
 	import { useFilterStore } from '../stores/filter-store';
 	import CardsUniversity from '../components/CardsUniversity.vue';
-	import ArrowLeft from '../icons/ArrowLeft.vue';
-	import { storeToRefs } from 'pinia';
+	import BackButton from '../components/BackButton.vue';
 
-	const router = useRouter();
 	const filter = useFilterStore();
 	const { favorites } = storeToRefs(filter);
 
@@ -54,21 +49,9 @@
 		});
 		filter.setFavorites();
 	}
-
-	function back() {
-		router.push('/');
-	}
 </script>
 
 <style scoped>
-	.back-page {
-		display: flex;
-		align-items: center;
-		justify-content: start;
-		flex-direction: row;
-		gap: 12px;
-		cursor: pointer;
-	}
 	.favorite-country h1 {
 		font-size: 24px;
 		margin: 34px 0 0 0;

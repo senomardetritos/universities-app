@@ -2,7 +2,7 @@
 	<div>
 		<header-page />
 		<main>
-			<RouterView />
+			<RouterView class="container" />
 		</main>
 	</div>
 </template>
@@ -20,5 +20,8 @@
 		flex-direction: column;
 		padding: 12px 16px;
 		background-color: inherit;
+	}
+	main .container {
+		width: 100%;
 	}
 </style>

@@ -4,7 +4,7 @@
 			<div class="card-university">
 				<book-mark-fill class="favorite red" v-if="item.check" @click="favorite(item)" />
 				<book-mark class="favorite" v-else @click="favorite(item)" />
-				<h1>{{ item.name }}</h1>
+				<h1 @click="openUniversity(item)">{{ item.name }}</h1>
 				<a :href="link" target="_blank" v-for="(link, j) in item.web_pages" :key="j">{{ link }}</a>
 			</div>
 		</div>
@@ -13,16 +13,20 @@
 
 <script setup>
 	import { defineProps, defineEmits } from 'vue';
+	import { getStorage, setStorage } from '../utils/storage';
+	import { useRouter } from 'vue-router';
+	import { useUniversityStore } from '../stores/university-store';
 
 	import BookMark from '../icons/BookMark.vue';
 	import BookMarkFill from '../icons/BookMarkFill.vue';
-	import { getStorage, setStorage } from '../utils/storage';
 
 	defineProps({
 		universities: Array,
 	});
 
 	const emits = defineEmits(['favorite']);
+	const router = useRouter();
+	const store = useUniversityStore();
 
 	function favorite(item) {
 		const data = getStorage('favorite');
@@ -39,6 +43,11 @@
 		}
 		emits('favorite');
 	}
+
+	function openUniversity(item) {
+		store.setUniversity(item);
+		router.push('/university');
+	}
 </script>
 
 <style scoped>
@@ -48,7 +57,7 @@
 		flex-wrap: wrap;
 		justify-content: flex-start;
 		padding-top: 24px;
-        margin: -12px;
+		margin: -12px;
 	}
 	.container-university-item {
 		width: 100%;
@@ -58,9 +67,9 @@
 		border-radius: 12px;
 		box-shadow: 0px 0px 10px -8px #000;
 		padding: 12px 24px;
-        margin: 12px;
+		margin: 12px;
 		width: auto;
-        height: calc(100% - 48px);
+		height: calc(100% - 48px);
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
@@ -70,6 +79,7 @@
 		color: var(--text-dark);
 		font-size: 22px;
 		width: calc(100% - 24px);
+		cursor: pointer;
 	}
 	.card-university a {
 		display: block;

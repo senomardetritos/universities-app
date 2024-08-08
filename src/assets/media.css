@@ -1,8 +1,4 @@
-@media (min-width: 968px) {
-	header,
-	main {
-		padding: 20px 160px !important;
-	}
+@media (min-width: 640px) {
 	header .logo {
 		font-size: 24px !important;
 	}
@@ -11,8 +7,15 @@
 	}
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 968px) {
 	.container-university-item {
 		width: 33.333% !important;
+	}
+}
+
+@media (min-width: 1200px) {
+	header,
+	main {
+		padding: 20px 160px !important;
 	}
 }
