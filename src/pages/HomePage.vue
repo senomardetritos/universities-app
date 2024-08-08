@@ -10,12 +10,12 @@
 			</div>
 		</div>
 		<div v-else>Carregando</div>
-		<div class="load-more" v-if="universities && universities.length >= limit">
+		<div class="load-more" v-if="universities && listUniversities && listUniversities.length >= limit">
 			<div class="load-button" @click="loadMore">
 				<ArrowClockwise />
 				<div>Carregar Mais</div>
 			</div>
-			<div>Mostrando {{ limit }} de {{ universities?.length }}</div>
+			<div>Mostrando {{ limit }} de {{ listUniversities?.length }}</div>
 		</div>
 	</div>
 </template>
@@ -37,17 +37,17 @@
 	const listUniversities = computed(() => {
 		const data = getStorage('favorite');
 		universities.value.map((item) => {
-			if (data.includes(item?.name)) {
-				item.check = true;
-			} else {
-				item.check = false;
+			if (data) {
+				if (data.includes(item?.name)) {
+					item.check = true;
+				} else {
+					item.check = false;
+				}
 			}
 		});
 		filter.setFavorites();
-		return universities.value.filter((item, i) => {
-			if (i < limit.value) {
-				return item.name.toLowerCase().includes(search.value.toLowerCase());
-			}
+		return universities.value.filter((item) => {
+			return item.name.toLowerCase().includes(search.value.toLowerCase());
 		});
 	});
 

@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<BackButton page="/"/>
+		<BackButton page="/" />
 		<div class="favorite-container" v-if="favorites > 0">
 			<div class="favorite-country" v-for="(item, i) in list_countries" :key="i">
 				<div v-if="item.items.length > 0">
@@ -40,12 +40,16 @@
 			};
 			const country = getStorage(item[0]);
 			const favorites = getStorage('favorite');
-			country.map((item_country) => {
-				if (favorites.includes(item_country.name)) {
-					item_country.check = true;
-					list_countries.value[item[0]].items.push(item_country);
-				}
-			});
+			if (country) {
+				country.map((item_country) => {
+					if (favorites) {
+						if (favorites.includes(item_country.name)) {
+							item_country.check = true;
+							list_countries.value[item[0]].items.push(item_country);
+						}
+					}
+				});
+			}
 		});
 		filter.setFavorites();
 	}

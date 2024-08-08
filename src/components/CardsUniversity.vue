@@ -1,6 +1,6 @@
 <template>
 	<div class="container-university">
-		<div class="container-university-item" v-for="(item, i) in universities" :key="i">
+		<div class="container-university-item" v-for="(item, i) in listUniversities" :key="i">
 			<div class="card-university">
 				<book-mark-fill class="favorite red" v-if="item.check" @click="favorite(item)" />
 				<book-mark class="favorite" v-else @click="favorite(item)" />
@@ -12,21 +12,38 @@
 </template>
 
 <script setup>
-	import { defineProps, defineEmits } from 'vue';
+	import { computed, defineProps, defineEmits } from 'vue';
 	import { getStorage, setStorage } from '../utils/storage';
 	import { useRouter } from 'vue-router';
 	import { useUniversityStore } from '../stores/university-store';
+	import { useFilterStore } from '../stores/filter-store';
+	import { storeToRefs } from 'pinia';
 
 	import BookMark from '../icons/BookMark.vue';
 	import BookMarkFill from '../icons/BookMarkFill.vue';
 
-	defineProps({
+	const props = defineProps({
 		universities: Array,
 	});
-
 	const emits = defineEmits(['favorite']);
+
+	const filter = useFilterStore();
+	const { limit } = storeToRefs(filter);
+
 	const router = useRouter();
 	const store = useUniversityStore();
+
+	const listUniversities = computed(() => {
+		if (props.universities) {
+			return props.universities.filter((item, i) => {
+				if (i < limit.value) {
+					return true;
+				}
+				return false;
+			});
+		}
+		return [];
+	});
 
 	function favorite(item) {
 		const data = getStorage('favorite');

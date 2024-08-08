@@ -7,4 +7,5 @@ module.exports = defineConfig({
 			title: 'Universities',
 		},
 	},
+	publicPath: process.env.NODE_ENV === 'production' ? './' : '/',
 });
