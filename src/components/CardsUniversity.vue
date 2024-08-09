@@ -2,8 +2,7 @@
 	<div class="container-university">
 		<div class="container-university-item" v-for="(item, i) in listUniversities" :key="i">
 			<div class="card-university">
-				<book-mark-fill class="favorite red" v-if="item.check" @click="favorite(item)" />
-				<book-mark class="favorite" v-else @click="favorite(item)" />
+				<FavoriteButton :item="item" @favorite="favorite" />
 				<h1 @click="openUniversity(item)">{{ item.name }}</h1>
 				<a :href="link" target="_blank" v-for="(link, j) in item.web_pages" :key="j">{{ link }}</a>
 			</div>
@@ -13,14 +12,12 @@
 
 <script setup>
 	import { computed, defineProps, defineEmits } from 'vue';
-	import { getStorage, setStorage } from '../utils/storage';
 	import { useRouter } from 'vue-router';
 	import { useUniversityStore } from '../stores/university-store';
 	import { useFilterStore } from '../stores/filter-store';
 	import { storeToRefs } from 'pinia';
 
-	import BookMark from '../icons/BookMark.vue';
-	import BookMarkFill from '../icons/BookMarkFill.vue';
+	import FavoriteButton from '../components/FavoriteButton.vue';
 
 	const props = defineProps({
 		universities: Array,
@@ -45,19 +42,7 @@
 		return [];
 	});
 
-	function favorite(item) {
-		const data = getStorage('favorite');
-		if (data) {
-			if (data.includes(item.name)) {
-				const index = data.indexOf(item.name);
-				data.splice(index, 1);
-			} else {
-				data.push(item.name);
-			}
-			setStorage('favorite', data);
-		} else {
-			setStorage('favorite', [item.name]);
-		}
+	function favorite() {
 		emits('favorite');
 	}
 
@@ -101,14 +86,5 @@
 	.card-university a {
 		display: block;
 		font-size: 12px;
-	}
-	.favorite {
-		position: absolute;
-		top: 24px;
-		right: 24px;
-		cursor: pointer;
-	}
-	.favorite.red {
-		color: #ff3300;
 	}
 </style>

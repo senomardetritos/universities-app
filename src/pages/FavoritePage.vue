@@ -32,6 +32,7 @@
 	});
 
 	function loadData() {
+		list_countries.value = {};
 		const data = Object.entries(countries);
 		data.map((item) => {
 			list_countries.value[item[0]] = {
@@ -44,7 +45,6 @@
 				country.map((item_country) => {
 					if (favorites) {
 						if (favorites.includes(item_country.name)) {
-							item_country.check = true;
 							list_countries.value[item[0]].items.push(item_country);
 						}
 					}

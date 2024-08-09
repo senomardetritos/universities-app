@@ -2,6 +2,7 @@
 	<div>
 		<BackButton page="/" />
 		<div class="university-page" v-if="university">
+			<FavoriteButton :item="university" @favorite="favorite" />
 			<h3>{{ countries[university.country] }}</h3>
 			<h1>{{ university.name }}</h1>
 			<div class="university-page-description">
@@ -26,10 +27,13 @@
 	import { useRouter } from 'vue-router';
 	import { storeToRefs } from 'pinia';
 	import { useUniversityStore } from '../stores/university-store';
+	import { useFilterStore } from '../stores/filter-store';
 	import { countries } from '../options/countries';
 	import BackButton from '../components/BackButton.vue';
+	import FavoriteButton from '../components/FavoriteButton.vue';
 
 	const router = useRouter();
+	const filter = useFilterStore();
 	const store = useUniversityStore();
 	const { university } = storeToRefs(store);
 	const data = ref(null);
@@ -48,6 +52,10 @@
 			console.log(e);
 		}
 	});
+
+	function favorite() {
+		filter.setFavorites();
+	}
 </script>
 
 <style scoped>
@@ -57,6 +65,7 @@
 		margin-top: 24px;
 		border-radius: 12px;
 		box-shadow: 0px 0px 10px -8px #000;
+		position: relative;
 	}
 	.university-page h3,
 	.university-page h1 {

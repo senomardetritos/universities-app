@@ -35,16 +35,6 @@
 	const universities = ref(null);
 
 	const listUniversities = computed(() => {
-		const data = getStorage('favorite');
-		universities.value.map((item) => {
-			if (data) {
-				if (data.includes(item?.name)) {
-					item.check = true;
-				} else {
-					item.check = false;
-				}
-			}
-		});
 		filter.setFavorites();
 		return universities.value.filter((item) => {
 			return item.name.toLowerCase().includes(search.value.toLowerCase());

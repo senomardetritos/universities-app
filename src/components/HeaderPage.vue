@@ -50,6 +50,9 @@
 		flex-direction: row;
 		padding: 8px 16px;
 		background-color: var(--bg-light);
+		position: sticky;
+		top: 0;
+		z-index: 1;
 	}
 	header .logo {
 		color: var(--text-dark);
